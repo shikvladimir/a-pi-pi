@@ -23,9 +23,8 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
-//        dd($this->user->role);
         if($this->user->role !== 'admin'){
-            return redirect('error');
+            return response(['error'=> 'Permission denied'],403);
         }
         return $next($request);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserCreateRequest;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -41,7 +41,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function get_user(Request $request)
+    public function get_user()
     {
 //        if($request->token){
 //            $this->validate($request, [
@@ -58,13 +58,5 @@ class AuthController extends Controller
 
 
         return response()->json(['user' => $user]);
-    }
-
-    public function error()
-    {
-        return response()->json([
-            'success' => false,
-            'message' => 'You do not admin!',
-        ], 500);
     }
 }

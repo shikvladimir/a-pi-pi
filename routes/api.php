@@ -16,18 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-Route::post('login', [AuthController::class, 'authenticate']);
+Route::post('login', [AuthController::class, 'authenticate'])->name('user.authenticate');
 Route::get('get_user', [AuthController::class, 'get_user']);
 
-Route::post('error', [AuthController::class, 'error'])->name('error');
-//Route::post('register', [AuthController::class, 'register']);
 
 Route::group(['middleware' => ['jwt.verify','check.role']], function() {
-    Route::post('register', [UserController::class, 'register']);
-    Route::put('update/{user}',  [UserController::class, 'update']);
-    Route::delete('delete/{user}',  [UserController::class, 'destroy']);
+    Route::post('register', [UserController::class, 'register'])->name('admin.register');
+    Route::put('update/{id}',  [UserController::class, 'update'])->name('admin.update');
+    Route::post('delete',  [UserController::class, 'delete'])->name('admin.delete');
+});
+
+Route::get('error', function (){
+    return response(['message' => 'User not found'])->name('error');
 });
