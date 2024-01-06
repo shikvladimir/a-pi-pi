@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -28,7 +26,6 @@ class AuthController extends Controller
                 ], 400);
             }
         } catch (JWTException $e) {
-//            return $credentials;
             return response()->json([
                 'success' => false,
                 'message' => 'Could not create token.',
@@ -43,19 +40,7 @@ class AuthController extends Controller
 
     public function get_user()
     {
-//        if($request->token){
-//            $this->validate($request, [
-//                'token' => 'required'
-//            ]);
-//        }
-
-
         $user = auth()->user();
-
-//        $user = JWTAuth::authenticate($request->token);
-
-//        dd($user);
-
 
         return response()->json(['user' => $user]);
     }

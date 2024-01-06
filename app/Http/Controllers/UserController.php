@@ -7,17 +7,9 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
-//    protected $user;
-
-//    public function __construct()
-//    {
-//        $this->user = JWTAuth::parseToken()->authenticate();
-//    }
-
     public function register(UserCreateRequest $request)
     {
         $user = User::create([
