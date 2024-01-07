@@ -2,8 +2,6 @@
 
 ## Start project
 
-- php artisan key:generate
-- php artisan jwt:secret
-- php artisan migrate --seed
+Миграции запускать с Seeders
 
--docker exec -it project_app bash
+php artisan migrate --seed
