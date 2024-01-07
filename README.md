@@ -4,3 +4,6 @@
 
 - php artisan key:generate
 - php artisan jwt:secret
+- php artisan migrate --seed
+
+-docker exec -it project_app bash
