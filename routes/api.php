@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [AuthController::class, 'authenticate'])->name('user.authenticate');
-Route::get('get_user', [AuthController::class, 'get_user']);
-
-
-Route::group(['middleware' => ['jwt.verify','check.role']], function() {
-    Route::post('register', [UserController::class, 'register'])->name('admin.register');
-    Route::put('update/{id}',  [UserController::class, 'update'])->name('admin.update');
-    Route::post('delete',  [UserController::class, 'delete'])->name('admin.delete');
-});
-
-Route::get('error', function (){
-    return response(['message' => 'User not found'])->name('error');
-});
+//Route::post('login', [AuthController::class, 'authenticate'])->name('user.authenticate');
+//Route::get('get_user', [AuthController::class, 'get_user']);
+//
+//
+//Route::group(['middleware' => ['jwt.verify','check.role']], function() {
+//    Route::post('register', [UserController::class, 'register'])->name('admin.register');
+//    Route::put('update/{id}',  [UserController::class, 'update'])->name('admin.update');
+//    Route::post('delete',  [UserController::class, 'delete'])->name('admin.delete');
+//});
+//
+//Route::get('error', function (){
+//    return response(['message' => 'User not found'])->name('error');
+//});
