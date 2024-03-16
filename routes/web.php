@@ -25,37 +25,41 @@ Route::get('/', function () {
 
 Route::post('go', function (Request $request) {
 
+    $text = $request->text;
 
-//    for ($step = 1; $step < 100; $step++){
-        $url_tabletka = file_get_contents('https://tabletka.by/user-query?page='.$step);
+    $currentPage = 1322;
 
-        $document = new Document($url_tabletka);
-        $ul = $document->find('ul');
+    $nextPageSelector = '.table-pagination-next';
+    $nextPageUrlAttribute = 'href';
 
-        $arr = [];
-//        foreach ($ul as $item) {
-//            if(strpos($item->text(), $request->text) !== false){
-//                array_push($arr, $item->text());
-//            }
-//        }
-//
-//        $p = $document->find('p');
-//        foreach ($p as $item) {
-//            if(strpos($item->text(), $request->text) !== false){
-//                array_push($arr, $item->text());
-//            }
-//        }
+    $arr = [];
 
-        $div = $document->find('p');
-        foreach ($div as $item) {
-            if(strpos($item->text(), $request->text) !== false){
+    do{
+        $startPageUrl = file_get_contents("https://tabletka.by/user-query?page=".$currentPage);
+
+        $document = new Document($startPageUrl);
+
+        // Извлечение данных из текущей страницы
+        $ul = $document->find('.quest-inner');
+        foreach ($ul as $item) {
+            if (strpos(mb_strtolower($item->text()), mb_strtolower($request->text)) !== false) {
                 array_push($arr, $item->text());
             }
         }
-//    }
+
+        // Переход на следующую страницу
+        $nextPageLink = $document->first($nextPageSelector);
+
+        if (!empty($nextPageLink->attr($nextPageUrlAttribute))) {
+            $currentPage++;
+        } else {
+            break;
+        }
+
+//    }while($currentUrl);
+    }while(true);
 
 
 
-    return view('welcome', compact( 'arr'));
-    dd(123,$request->all());
+    return view('welcome', compact('arr','text'));
 })->name('go');

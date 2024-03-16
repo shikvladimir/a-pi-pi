@@ -246,10 +246,13 @@
 {{--        </div>--}}
 {{--    </div>--}}
 </div>
-<div class="d-flex flex-column">
-    @foreach($arr as $item)
-        <p>{!! $item !!}</p>
-    @endforeach
+<div class="d-flex flex-column" style="margin: 0 20px;">
+    @if(isset($arr))
+        @foreach($arr as $item)
+            <p>{!! str_replace($text, "<b style='color: white; background: red'>$text</b>", $item); !!}</p>
+            <hr/>
+        @endforeach
+    @endif
 </div>
 
 
@@ -363,6 +366,13 @@
     .filter span {
         margin: 0;
         cursor: pointer;
+    }
+    hr {
+        margin: 1rem 0;
+        color: inherit;
+        background-color: currentColor;
+        border: 0;
+        opacity: 0.25;
     }
 </style>
 </html>
