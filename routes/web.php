@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ParsController;
 use App\Models\Order;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use DiDom\Document;
 
@@ -18,13 +20,37 @@ use DiDom\Document;
 */
 
 Route::get('/', function () {
-    $data = Order::with('user')->get(/*['id','title','cost']*/);
-
-    return view('welcome', compact('data'));
+    return view('welcome',);
 });
+
+Route::post('/pars', [ParsController::class, 'get'])->name('pars');
 
 Route::post('go', function (Request $request) {
 
+    $page = 1322;
+
+    $url = "https://tabletka.by/user-query?page=".$page;
+
+    $client = new \GuzzleHttp\Client();
+    $resp = $client->get($url);
+    $html = $resp->getBody()->getContents();
+
+    $document = new Document();
+    $document->loadHtml($html);
+    $catalog = $document->find('.quest-inner');
+
+    print_r($catalog);
+//    echo $catalog;
+
+
+
+
+
+
+
+
+
+/**
     $text = $request->text;
 
     $currentPage = 1322;
@@ -58,8 +84,6 @@ Route::post('go', function (Request $request) {
 
 //    }while($currentUrl);
     }while(true);
-
-
-
     return view('welcome', compact('arr','text'));
+ **/
 })->name('go');
